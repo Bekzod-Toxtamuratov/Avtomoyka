@@ -1,6 +1,5 @@
 import { Update, On, Start, Ctx } from 'nestjs-telegraf';
 import { Context } from 'telegraf';
-
 @Update()
 export class BotUpdate {
   private user: any;
@@ -28,7 +27,7 @@ export class BotUpdate {
           keyboard: [
             [
               { text: "Ro'yxatdan o'tish" },
-              { text: "Biz haqimizda ma'lumotlar"},
+              { text: "Biz haqimizda ma'lumotlar" },
             ],
             [
               { text: 'Bizning manzil 📍', text_id: 123 },
@@ -40,17 +39,16 @@ export class BotUpdate {
       },
     );
   }
-
+  // console.log("dadad")
   @On('message')
   async onLocation(ctx) {
     console.log(ctx.update);
 
     if (ctx.update.message.text == 'Bizning manzil 📍') {
       await ctx.sendLocation(35.804819, 51.43407, {
-           live_period: 86400,
+        live_period: 86400,
       });
     }
-
     if (this.step == 0) {
       if (ctx.update.message.text == "Biz bilan bog'lanish 📲") {
         this.user.id = ctx.update.message.from.id;
@@ -89,12 +87,14 @@ export class BotUpdate {
       this.user.car_name = ctx.update.message.text;
 
       await ctx.reply(
-        `id:${this.user.id}  
+      `id:${this.user.id}  
       Name:${this.user.name},
       Age:${this.user.age},
       Mashena:${this.user.car_name} `,
       );
     }
+
+    // console.log("dastur")
 
     // if (this.step == 0) {
     //   if (ctx.update.message.text == "Biz bilan bog'lanish 📲") {
@@ -151,7 +151,7 @@ export class BotUpdate {
 
         this.car.id = ctx.update.message.from.id;
         this.step1 = ++this.step1;
-        await ctx.reply('Mashena name', {
+        await ctx.reply('Mashina nomi', {
           reply_markup: {
             keyboard: [[{ text: 'Ortga qaytish' }]],
             resize_keyboard: true,
@@ -173,7 +173,7 @@ export class BotUpdate {
       this.car.yuvish = ctx.update.message.text;
       this.step1 = ++this.step1;
       await ctx.reply(
-        `id:${this.car.id}  
+      `id:${this.car.id}  
       :${this.car.name},
       :${this.car.yuvish},
      `,
